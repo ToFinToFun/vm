@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fotbolls-VM 2026 – Svensk Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --gold: #f5b800;
+    --gold2: #ffda6b;
+    --blue-se: #006AA7;
+    --yellow-se: #FECC02;
+    --red: #e84040;
+    --green: #22c55e;
+    --text: #e8edf5;
+    --muted: #8899b0;
+    --border: rgba(255,255,255,0.07);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 60px 24px 50px;
+    text-align: center;
+    background: linear-gradient(180deg, #0d1528 0%, var(--bg) 100%);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(245,184,0,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-flag {
+    display: inline-flex;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+  .flag-stripe {
+    width: 8px;
+    height: 40px;
+    border-radius: 2px;
+  }
+  .flag-stripe.b { background: var(--blue-se); }
+  .flag-stripe.y { background: var(--yellow-se); width: 12px; }
+
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.8rem, 8vw, 5.5rem);
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+
+  .hero h1 span.highlight {
+    color: var(--gold);
+    display: block;
+  }
+
+  .hero-sub {
+    margin-top: 16px;
+    font-size: 1rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    text-align: center;
+  }
+  .meta-item .val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .meta-item .lbl {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-top: 2px;
+  }
+
+  .divider {
+    width: 2px;
+    background: var(--border);
+    height: 40px;
+    align-self: center;
+  }
+
+  /* SECTION LAYOUT */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  section {
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    margin-bottom: 24px;
+  }
+
+  /* TV KANALER */
+  .tv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .tv-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .tv-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .tv-card.svt::before { background: linear-gradient(90deg, #1a6aff, #5599ff); }
+  .tv-card.tv4::before { background: linear-gradient(90deg, #e63030, #ff6b6b); }
+
+  .tv-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .tv-card.svt .tv-name { color: #5599ff; }
+  .tv-card.tv4 .tv-name { color: #ff6060; }
+
+  .tv-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+  .tv-free {
+    display: inline-block;
+    margin-top: 8px;
+    background: rgba(34,197,94,0.15);
+    color: var(--green);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  /* SVERIGE MATCHER */
+  .se-matches {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .match-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 16px;
+    transition: border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .match-card.se-match {
+    border-color: rgba(254,204,2,0.25);
+    background: linear-gradient(135deg, rgba(0,106,167,0.12) 0%, rgba(254,204,2,0.06) 100%);
+  }
+
+  .match-card.se-match::before {
+    content: '🇸🇪';
+    position: absolute;
+    right: 14px;
+    top: 12px;
+    font-size: 1.1rem;
+    opacity: 0.5;
+  }
+
+  .match-card.highlight-match {
+    border-color: rgba(245,184,0,0.3);
+  }
+  .match-card.highlight-match::after {
+    content: '⭐';
+    position: absolute;
+    right: 14px;
+    top: 12px;
+    font-size: 0.9rem;
+    opacity: 0.7;
+  }
+
+  .match-date-col {
+    text-align: center;
+    min-width: 60px;
+  }
+  .match-day {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--gold);
+  }
+  .match-month {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+
+  .match-info {}
+  .match-teams {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+  }
+  .match-detail {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  .match-right {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .match-time {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text);
+  }
+  .match-channel {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 4px;
+  }
+  .ch-svt { background: rgba(85,153,255,0.2); color: #5599ff; }
+  .ch-tv4 { background: rgba(230,48,48,0.2); color: #ff7070; }
+
+  .night-warn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.7rem;
+    color: #f97316;
+    margin-top: 4px;
+  }
+
+  /* GROUP TABLE */
+  .group-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .group-header {
+    padding: 12px 18px;
+    background: var(--surface2);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    border-bottom: 1px solid var(--border);
+  }
+  .group-teams {
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .group-team {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.9rem;
+  }
+  .group-team.sweden {
+    font-weight: 600;
+    color: var(--yellow-se);
+  }
+  .team-flag { margin-right: 6px; }
+  .team-rank {
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+  .fav-badge {
+    font-size: 0.65rem;
+    background: rgba(245,184,0,0.15);
+    color: var(--gold);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  /* FAVORITES */
+  .favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+  }
+
+  .fav-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .fav-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+  }
+  .fav-rank {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--gold);
+    opacity: 0.25;
+    position: absolute;
+    top: 8px;
+    right: 12px;
+  }
+  .fav-flag { font-size: 1.8rem; margin-bottom: 6px; display: block; }
+  .fav-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .fav-star {
+    color: var(--gold);
+    font-size: 0.8rem;
+    margin-top: 4px;
+  }
+  .fav-note {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+
+  /* MUST-WATCH */
+  .must-watch {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* TIPS BOX */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 10px;
+  }
+  .tip-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+  }
+  .tip-icon { font-size: 1.5rem; margin-bottom: 8px; display: block; }
+  .tip-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    letter-spacing: 0.05em;
+  }
+  .tip-text { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+  /* KNOCKOUT INFO */
+  .knockout-info {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .ko-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .ko-item {
+    text-align: center;
+    padding: 12px;
+    background: var(--surface2);
+    border-radius: 8px;
+  }
+  .ko-round {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    margin-bottom: 2px;
+  }
+  .ko-date { font-size: 0.8rem; color: var(--muted); }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--muted);
+    font-size: 0.78rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 600px) {
+    .tv-grid { grid-template-columns: 1fr; }
+    .match-card { grid-template-columns: auto 1fr auto; gap: 10px; }
+    .match-right { display: block; }
+    .match-time { font-size: 1.1rem; }
+    .hero-meta { gap: 20px; }
+    .divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-flag">
+    <div class="flag-stripe b"></div>
+    <div class="flag-stripe y"></div>
+    <div class="flag-stripe b"></div>
+    <div class="flag-stripe b"></div>
+    <div class="flag-stripe b"></div>
+  </div>
+  <h1>
+    Fotbolls-VM
+    <span class="highlight">2026</span>
+  </h1>
+  <p class="hero-sub">Den kompletta guiden för svenska tittare</p>
+
+  <div class="hero-meta">
+    <div class="meta-item">
+      <div class="val">11 jun</div>
+      <div class="lbl">Premiär</div>
+    </div>
+    <div class="divider"></div>
+    <div class="meta-item">
+      <div class="val">19 jul</div>
+      <div class="lbl">Final</div>
+    </div>
+    <div class="divider"></div>
+    <div class="meta-item">
+      <div class="val">104</div>
+      <div class="lbl">Matcher</div>
+    </div>
+    <div class="divider"></div>
+    <div class="meta-item">
+      <div class="val">48</div>
+      <div class="lbl">Nationer</div>
+    </div>
+    <div class="divider"></div>
+    <div class="meta-item">
+      <div class="val">GRATIS</div>
+      <div class="lbl">SVT & TV4</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- TV & STREAMING -->
+  <section>
+    <p class="section-label">Var tittar du?</p>
+    <h2 class="section-title">TV & Streaming</h2>
+    <div class="tv-grid">
+      <div class="tv-card svt">
+        <div class="tv-name">SVT</div>
+        <div class="tv-desc">SVT1, SVT2 och SVT Play. Sveriges matcher mot Tunisien och Japan sänds här. SVT Play kräver ingen inloggning.</div>
+        <span class="tv-free">✓ Helt gratis</span>
+      </div>
+      <div class="tv-card tv4">
+        <div class="tv-name">TV4</div>
+        <div class="tv-desc">TV4 och TV4 Play. Sverige–Nederländerna visas här. Majoriteten av matcherna under gruppspelet.</div>
+        <span class="tv-free">✓ Helt gratis</span>
+      </div>
+    </div>
+    <p style="font-size:0.82rem; color: var(--muted); line-height:1.6;">
+      <strong style="color:var(--text)">Tips:</strong> Uppdatera SVT Play- och TV4 Play-apparna innan VM börjar. Alla 104 matcher är tillgängliga utan extra kostnad — ingen streaming-tjänst behövs. Observera att matcher kan börja redan kl&nbsp;00:00 och så sent som kl&nbsp;04:00–06:00 på grund av tidsskillnaden till USA och Mexiko (–6 till –9&nbsp;timmar).
+    </p>
+  </section>
+
+  <!-- SVERIGES GRUPP -->
+  <section>
+    <p class="section-label">Grupp F</p>
+    <h2 class="section-title">Sveriges Grupp</h2>
+
+    <div class="group-box" style="margin-bottom:24px;">
+      <div class="group-header">Grupp F — Matcher 14–26 juni</div>
+      <div class="group-teams">
+        <div class="group-team sweden">
+          <span><span class="team-flag">🇸🇪</span> Sverige</span>
+          <span class="fav-badge">Blågult!</span>
+        </div>
+        <div class="group-team">
+          <span><span class="team-flag">🇳🇱</span> Nederländerna</span>
+          <span class="fav-badge">Gruppfavorit</span>
+        </div>
+        <div class="group-team">
+          <span><span class="team-flag">🇯🇵</span> Japan</span>
+          <span class="team-rank">Farlig motståndare</span>
+        </div>
+        <div class="group-team">
+          <span><span class="team-flag">🇹🇳</span> Tunisien</span>
+          <span class="team-rank">Överkomlig öppning</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MATCH CARDS: SVERIGE -->
+    <div class="se-matches">
+
+      <div class="match-card se-match">
+        <div class="match-date-col">
+          <div class="match-day">15</div>
+          <div class="match-month">Jun</div>
+        </div>
+        <div class="match-info">
+          <div class="match-teams">🇸🇪 Sverige vs Tunisien 🇹🇳</div>
+          <div class="match-detail">Estadio BBVA · Monterrey, Mexiko · Premiärmatch</div>
+          <div class="night-warn">🌙 Nattmatch – sätt kaffet på!</div>
+        </div>
+        <div class="match-right">
+          <div class="match-time">04:00</div>
+          <span class="match-channel ch-svt">SVT</span>
+        </div>
+      </div>
+
+      <div class="match-card se-match">
+        <div class="match-date-col">
+          <div class="match-day">20</div>
+          <div class="match-month">Jun</div>
+        </div>
+        <div class="match-info">
+          <div class="match-teams">🇸🇪 Sverige vs Nederländerna 🇳🇱</div>
+          <div class="match-detail">NRG Stadium · Houston, USA · Midsommaraftonsdag</div>
+        </div>
+        <div class="match-right">
+          <div class="match-time">19:00</div>
+          <span class="match-channel ch-tv4">TV4</span>
+        </div>
+      </div>
+
+      <div class="match-card se-match">
+        <div class="match-date-col">
+          <div class="match-day">26</div>
+          <div class="match-month">Jun</div>
+        </div>
+        <div class="match-info">
+          <div class="match-teams">🇸🇪 Sverige vs Japan 🇯🇵</div>
+          <div class="match-detail">AT&T Stadium · Dallas, USA · Sista gruppspelsmatchen</div>
+          <div class="night-warn">🌙 Nattmatch</div>
+        </div>
+        <div class="match-right">
+          <div class="match-time">01:00</div>
+          <span class="match-channel ch-svt">SVT</span>
+        </div>
+      </div>
+
+    </div>
+
+    <p style="margin-top:16px; font-size:0.82rem; color: var(--muted); line-height:1.6; background: var(--surface); padding:14px 16px; border-radius:8px; border: 1px solid var(--border);">
+      <strong style="color:var(--text)">Gruppanalys:</strong> Nederländerna är klar favorit att vinna gruppen. Sverige och Japan konkurrerar troligen om andraplats — en plats som räcker för avancemang. Tunisien är det minst skrämmande motståndet i premiären, vilket ger Blågult en bra chans att starta med full pott.
+    </p>
+  </section>
+
+  <!-- KNOCKOUT-SCHEMA -->
+  <section>
+    <p class="section-label">Slutspelet</p>
+    <h2 class="section-title">Vägen till finalen</h2>
+    <div class="knockout-info">
+      <p style="font-size:0.85rem; color:var(--muted); line-height:1.6; margin-bottom:4px;">
+        <strong style="color:var(--text)">Nytt format:</strong> 32 lag går vidare från gruppen (alla gruppettor + tvåor + 8 bästa treor). Slutspelet inleds med <em>sextondelsfinaler</em> — en ny rundomgång som aldrig funnits i VM tidigare.
+      </p>
+      <div class="ko-grid">
+        <div class="ko-item">
+          <div class="ko-round">Sextondelsfinaler</div>
+          <div class="ko-date">28 jun – 4 jul</div>
+        </div>
+        <div class="ko-item">
+          <div class="ko-round">Åttondelsfinaler</div>
+          <div class="ko-date">4 – 6 jul</div>
+        </div>
+        <div class="ko-item">
+          <div class="ko-round">Kvartsfinaler</div>
+          <div class="ko-date">8 – 10 jul</div>
+        </div>
+        <div class="ko-item">
+          <div class="ko-round">Semifinaler</div>
+          <div class="ko-date">14 – 15 jul</div>
+        </div>
+        <div class="ko-item">
+          <div class="ko-round">Final</div>
+          <div class="ko-date">19 juli · MetLife Stadium, NJ</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDALJFAVORITER -->
+  <section>
+    <p class="section-label">Vem vinner guldet?</p>
+    <h2 class="section-title">Medaljfavoriter</h2>
+    <p style="font-size:0.85rem; color:var(--muted); margin-bottom:20px; line-height:1.6;">Ingen klar favorit — men dessa lag är hetast enligt spelbolagen och analytiker.</p>
+    <div class="favorites-grid">
+
+      <div class="fav-card">
+        <span class="fav-rank">1</span>
+        <span class="fav-flag">🇪🇸</span>
+        <div class="fav-name">Spanien</div>
+        <div class="fav-star">★★★★★</div>
+        <div class="fav-note">Regerande EM-mästare. Lamine Yamal (18 år!) kan bli turneringens stjärna. Pedri och Rodri i mittfältet är världsklass. Oddsfavorit.</div>
+      </div>
+
+      <div class="fav-card">
+        <span class="fav-rank">2</span>
+        <span class="fav-flag">🇫🇷</span>
+        <div class="fav-name">Frankrike</div>
+        <div class="fav-star">★★★★★</div>
+        <div class="fav-note">VM-vinnare 2018, final 2022. Mbappé kan avgöra enskilda matcher. Världens rankingetta med bredast trupp av alla. Grupp I.</div>
+      </div>
+
+      <div class="fav-card">
+        <span class="fav-rank">3</span>
+        <span class="fav-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
+        <div class="fav-name">England</div>
+        <div class="fav-star">★★★★☆</div>
+        <div class="fav-note">Bellingham, Kane, Saka, Foden — offensiv bredd i toppklass. Thomas Tuchel som ny tränare. Utan VM-guld sedan 1966. Grupp L.</div>
+      </div>
+
+      <div class="fav-card">
+        <span class="fav-rank">4</span>
+        <span class="fav-flag">🇦🇷</span>
+        <div class="fav-name">Argentina</div>
+        <div class="fav-star">★★★★☆</div>
+        <div class="fav-note">Regerande världsmästare. Troligen Messis sista VM — stor dramatik garanteras. Grupp J mot Algeriet och Österrike.</div>
+      </div>
+
+      <div class="fav-card">
+        <span class="fav-rank">5</span>
+        <span class="fav-flag">🇧🇷</span>
+        <div class="fav-name">Brasilien</div>
+        <div class="fav-star">★★★★☆</div>
+        <div class="fav-note">Fem VM-guld. Vinícius Jr och Rodrygo i spetsen. Ny tränare Carlo Ancelotti. Grupp C med Marocko, Haiti och Skottland.</div>
+      </div>
+
+      <div class="fav-card">
+        <span class="fav-rank">6</span>
+        <span class="fav-flag">🇵🇹</span>
+        <div class="fav-name">Portugal</div>
+        <div class="fav-star">★★★☆☆</div>
+        <div class="fav-note">Ronaldos sista VM? Bruno Fernandes tar mer ansvar. En trupp fylld med Premier League-stjärnor. Grupp K.</div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:14px; background:var(--surface); border:1px solid rgba(254,204,2,0.2); border-radius:10px; padding:14px 18px;">
+      <p style="font-size:0.82rem; color:var(--muted); line-height:1.6;">
+        <strong style="color:var(--yellow-se)">🇸🇪 Sverige:</strong> Blågult är ett spännande wildcard under Gary Potter. Viktor Gyökeres i anfallet är en av Europas hetaste spetsar just nu. Realistiska chansen är att ta sig ur gruppen och kanske nå åttondelsfinalen — men drömmen om mer lever!
+      </p>
+    </div>
+  </section>
+
+  <!-- MUST-WATCH MATCHER -->
+  <section>
+    <p class="section-label">Sätt på kaffet</p>
+    <h2 class="section-title">Matcher att inte missa</h2>
+    <div class="must-watch">
+
+      <div class="match-card highlight-match">
+        <div class="match-date-col">
+          <div class="match-day">14</div>
+          <div class="match-month">Jun</div>
+        </div>
+        <div class="match-info">
+          <div class="match-teams">🇧🇷 Brasilien vs Marocko 🇲🇦</div>
+          <div class="match-detail">Premiärmatch för VM-favorit Brasilien · SVT</div>
+        </div>
+        <div class="match-right">
+          <div class="match-time">00:00</div>
+          <span class="match-channel ch-svt">SVT</span>
+        </div>
+      </div>
+
+      <div class="match-card highlight-match">
+        <div class="match-date-col">
+          <div class="match-day">16</div>
+          <div class="match-month">Jun</div>
+        </div>
+        <div class="match-info">
+          <div class="match-teams">🇫🇷 Frankrike vs Senegal 🇸🇳</div>
+          <div class="match-detail">Mbappé i VM-premiären · Grupp I · SVT</div>
+        </div>
+        <div class="match-right">
+          <div class="match-time">21:00</div>
+          <span class="match-channel ch-svt">SVT</span>
+        </div>
+      </div>
+
+      <div class="match-card highlight-match">
+        <div class="match-date-col">
+          <div class="match-day">17</div>
+          <div class="match-month">Jun</div>
+        </div>
+        <div class="match-info">
+          <div class="match-teams">🇦🇷 Argentina vs Algeriet 🇩🇿</div>
+          <div class="match-detail">Regerande mästare i VM-premiär · Grupp J · TV4</div>
+        </div>
+        <div class="match-right">
+          <div class="match-time">03:00</div>
+          <span class="match-channel ch-tv4">TV4</span>
+        </div>
+      </div>
+
+      <div class="match-card highlight-match">
+        <div class="match-date-col">
+          <div class="match-day">17</div>
+          <div class="match-month">Jun</div>
+        </div>
+        <div class="match-info">
+          <div class="match-teams">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs Kroatien 🇭🇷</div>
+          <div class="match-detail">EM 2021-återmatch · Grupp L · TV4</div>
+        </div>
+        <div class="match-right">
+          <div class="match-time">22:00</div>
+          <span class="match-channel ch-tv4">TV4</span>
+        </div>
+      </div>
+
+      <div class="match-card highlight-match">
+        <div class="match-date-col">
+          <div class="match-day">17</div>
+          <div class="match-month">Jun</div>
+        </div>
+        <div class="match-info">
+          <div class="match-teams">🇮🇶 Irak vs Norge 🇳🇴</div>
+          <div class="match-detail">Haaland i VM-debuten! Grupp I</div>
+          <div class="night-warn">🌙 Nattmatch</div>
+        </div>
+        <div class="match-right">
+          <div class="match-time">00:00</div>
+          <span class="match-channel ch-tv4">TV4</span>
+        </div>
+      </div>
+
+      <div class="match-card highlight-match">
+        <div class="match-date-col">
+          <div class="match-day">22</div>
+          <div class="match-month">Jun</div>
+        </div>
+        <div class="match-info">
+          <div class="match-teams">🇫🇷 Frankrike vs Irak 🇮🇶</div>
+          <div class="match-detail">Frankrike vs nordisk grannes gruppmotståndare · SVT</div>
+        </div>
+        <div class="match-right">
+          <div class="match-time">23:00</div>
+          <span class="match-channel ch-svt">SVT</span>
+        </div>
+      </div>
+
+      <div class="match-card highlight-match">
+        <div class="match-date-col">
+          <div class="match-day">27</div>
+          <div class="match-month">Jun</div>
+        </div>
+        <div class="match-info">
+          <div class="match-teams">🇪🇸 Spanien vs Uruguay 🇺🇾</div>
+          <div class="match-detail">Storstjärnorna Yamal möter Sudamerikaner · TV4</div>
+        </div>
+        <div class="match-right">
+          <div class="match-time">02:00</div>
+          <span class="match-channel ch-tv4">TV4</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PRAKTISKA TIPS -->
+  <section>
+    <p class="section-label">Bra att veta</p>
+    <h2 class="section-title">Praktiska Tips</h2>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <span class="tip-icon">🌙</span>
+        <div class="tip-title">Nattmatcher</div>
+        <div class="tip-text">Många matcher startar 00:00–04:00 p.g.a. tidsskillnaden. SVT och TV4 Play erbjuder repriser morgonen efter för dig som inte orkar nattlig fotboll.</div>
+      </div>
+      <div class="tip-card">
+        <span class="tip-icon">📱</span>
+        <div class="tip-title">Streama på mobilen</div>
+        <div class="tip-text">SVT Play fungerar utan inloggning. TV4 Play kräver ett gratiskonto. Båda fungerar på mobil, surfplatta, dator och smart-TV.</div>
+      </div>
+      <div class="tip-card">
+        <span class="tip-icon">⏱️</span>
+        <div class="tip-title">Tidsskillnad</div>
+        <div class="tip-text">Östkusten USA: –6h. Centralstaten: –7h. Västkusten: –9h. Mexiko: –7h. Sveriges matcher i Monterrey/Houston/Dallas = –7h från Sverige.</div>
+      </div>
+      <div class="tip-card">
+        <span class="tip-icon">🏟️</span>
+        <div class="tip-title">Rekordformat</div>
+        <div class="tip-text">48 lag och 104 matcher — det största VM någonsin. USA har 11 arenor, Mexiko 3 och Kanada 2. Finalen spelas på MetLife Stadium i New Jersey.</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>Fotbolls-VM 2026 · 11 juni – 19 juli · USA, Kanada & Mexiko</p>
+  <p style="margin-top:6px; opacity:0.5;">Alla tider angivna i svensk tid (CEST). SVT & TV4 sänder samtliga 104 matcher gratis.</p>
+</footer>
+
+</body>
+</html>
